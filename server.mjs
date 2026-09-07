@@ -14,7 +14,8 @@ const types = {
   '.webp': 'image/webp',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
-  '.woff2': 'font/woff2'
+  '.woff2': 'font/woff2',
+  '.glb': 'model/gltf-binary'
 };
 
 createServer(async (req, res) => {
