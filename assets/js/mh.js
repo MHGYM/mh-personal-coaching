@@ -945,60 +945,6 @@
     });
   }
 
-  /* ------------------------------------------------------- 9.5 PRICING TIERS */
-  /* Basic/Standard/Premium × 1/2/3× per week — the live, currently-sold PT
-     subscription catalogue. Sourced verbatim from PT_PLANS (ids 4-12) in
-     C:\Projecten\MHGym\src\controllers\ptController.js, cross-checked against
-     the same numbers rendered by client\src\components\PtPricingCards.jsx.
-     The pre-tier legacy plans (ids 1-3, flat €60/€55/€50) are deliberately
-     NOT included here — that controller file marks them "niet meer verkochte"
-     (no longer sold) and the live app never surfaces them to a customer. */
-  var TIER_PLANS = {
-    Basic:    { 1: { price: 219,  perLesson: 54.75, lessons: 4  }, 2: { price: 419,  perLesson: 52.38, lessons: 8  }, 3: { price: 599,  perLesson: 49.92, lessons: 12 } },
-    Standard: { 1: { price: 299,  perLesson: 74.75, lessons: 4  }, 2: { price: 569,  perLesson: 71.13, lessons: 8  }, 3: { price: 819,  perLesson: 68.25, lessons: 12 } },
-    Premium:  { 1: { price: 399,  perLesson: 99.75, lessons: 4  }, 2: { price: 759,  perLesson: 94.88, lessons: 8  }, 3: { price: 1099, perLesson: 91.58, lessons: 12 } }
-  };
-
-  function euro(n) {
-    // Dutch formatting: period as thousands separator, comma as decimal —
-    // matches formatEuro() in the app's client\src\utils\format.js.
-    var whole = Math.round(n) === n;
-    var parts = n.toFixed(2).split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    return '€' + (whole ? parts[0] : parts.join(','));
-  }
-
-  function initPricingTiers() {
-    var toggle = $('#freq-toggle');
-    var cards = $$('#tier-plans .plan[data-tier]');
-    if (!toggle || !cards.length) return;
-
-    function render(freq) {
-      cards.forEach(function (card) {
-        var tier = card.dataset.tier;
-        var plan = TIER_PLANS[tier] && TIER_PLANS[tier][freq];
-        if (!plan) return;
-        $('[data-field="price"]', card).textContent = euro(plan.price);
-        // The "/les" suffix is literal text in the markup, right after this span.
-        $('[data-field="perLesson"]', card).textContent = euro(plan.perLesson);
-        $('[data-field="lessons"]', card).textContent = plan.lessons;
-      });
-    }
-
-    toggle.addEventListener('click', function (e) {
-      var btn = e.target.closest('.freq-toggle__btn');
-      if (!btn) return;
-      $$('.freq-toggle__btn', toggle).forEach(function (b) {
-        var on = b === btn;
-        b.classList.toggle('is-active', on);
-        b.setAttribute('aria-checked', String(on));
-      });
-      render(parseInt(btn.dataset.freq, 10));
-    });
-
-    render(1); // keep in sync with the statically-rendered 1×/week markup
-  }
-
   /* ------------------------------------------------------------ 10. INTAKE */
   function initIntake() {
     var form = $('#intake-flow');
@@ -1153,7 +1099,6 @@
     initHeroParallax();
     initGoals();
     initTimeline();
-    initPricingTiers();
     initIntake();
     initContact();
     initBrandLogo();

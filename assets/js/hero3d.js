@@ -1,22 +1,21 @@
 /* ============================================================================
-   MH PERSONAL COACHING — hero, 3D model edition (experimental preview)
+   MH PERSONAL COACHING — hero, 3D model edition
    ---------------------------------------------------------------------------
    Replaces the procedural 2D canvas bag (see hero.js logic inside mh.js,
-   left untouched) with the real GLB assets: a boxing bag hanging from a
-   procedural chain, and an animated rope skipper nearby. WebGL via Three.js,
-   loaded from a CDN through an import map (see index.html) — the one real
-   external dependency this project has taken on, scoped to this file only.
+   left untouched) with the real GLB asset: a boxing bag hanging from a
+   procedural chain. WebGL via Three.js, loaded from a CDN through an import
+   map (see index.html) — the one real external dependency this project has
+   taken on, scoped to this file only.
 
-   Both models were re-exported through gltf-transform's optimize pipeline
-   before landing here:
-     boxing-bag.glb    5.49 MB  -> 0.68 MB
-     rope-skipper.glb  145.6 MB -> 27.5 MB  (source file had a broken export —
-                                              4 attribute accessors all pointed
-                                              at one bloated ~128MB buffer
-                                              view; optimize's dedup/meshopt
-                                              pass discarded the dead bytes)
-   The rope skipper is still heavy for mobile and loads lazily, after the bag
-   is up and interactive, specifically so it never blocks first paint.
+   The model was re-exported through gltf-transform's optimize pipeline
+   before landing here: boxing-bag.glb 5.49 MB -> 0.68 MB.
+
+   (This file previously also carried an animated rope-skipper model
+   alongside the bag — removed. Its source .glb had a broken export that
+   optimize brought from 145.6 MB down to 27.5 MB, but that was still too
+   heavy for mobile, and the whole feature was dropped rather than chased
+   further. If it comes back, gltf-transform's optimize+dedup pipeline is
+   the place to start.)
    ========================================================================== */
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -87,12 +86,6 @@ import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
   fill.position.set(2.8, 1.4, 3.4);
   scene.add(fill);
 
-  // Dedicated small light for the rope skipper — it stands well off to the
-  // side, out of the key spot's narrow cone, and reads as a pure silhouette
-  // without this.
-  var ropeLight = new THREE.PointLight(0xf0dca8, 45, 8, 2);
-  scene.add(ropeLight);
-
   /* -------------------------------------------------------------- DUST */
   var dustCount = coarse.matches ? 26 : 60;
   var dustGeo = new THREE.BufferGeometry();
@@ -141,21 +134,11 @@ import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
   bagGroup.position.y = bagAttachY;
   pivot.add(bagGroup);
 
-  /* -------------------------------------------------------- ROPE SKIPPER RIG */
-  // Stands to the bag's front-right, at the same floor level the bag now
-  // hangs close to. layout() only ever adjusts .x (to track the bag's own
-  // breakpoint-driven x) — y/z/rotation are fixed here.
-  var ropeGroup = new THREE.Group();
-  ropeGroup.position.set(0, -0.4, 0.6);
-  ropeGroup.rotation.y = -0.6;
-  scene.add(ropeGroup);
-  var ropeMixer = null;
-
-  /* ------------------------------------------------------------ LOAD MODELS */
+  /* ------------------------------------------------------------ LOAD MODEL */
   var loader = new GLTFLoader();
   loader.setMeshoptDecoder(MeshoptDecoder);
 
-  var bagReady = false, ropeReady = false;
+  var bagReady = false;
 
   loader.load('assets/models/boxing-bag.glb', function (gltf) {
     var model = gltf.scene;
@@ -172,31 +155,6 @@ import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
     bagReady = true;
     startWhenReady();
   }, undefined, function (err) { console.warn('[hero3d] boxing bag failed to load', err); });
-
-  // Lazy: fetch the rope skipper only after the bag is visible, so a 27MB
-  // asset never competes with the critical first paint.
-  function loadRopeSkipper() {
-    loader.load('assets/models/rope-skipper.glb', function (gltf) {
-      var model = gltf.scene;
-      model.traverse(function (n) { if (n.isMesh) { n.castShadow = true; n.receiveShadow = true; } });
-      var box = new THREE.Box3().setFromObject(model);
-      var size = new THREE.Vector3(); box.getSize(size);
-      var s = 1.72 / Math.max(0.001, size.y);
-      model.scale.setScalar(s);
-      var box2 = new THREE.Box3().setFromObject(model);
-      model.position.y = -box2.min.y;
-      model.position.x = -((box2.min.x + box2.max.x) / 2);
-      model.position.z = -((box2.min.z + box2.max.z) / 2);
-      ropeGroup.add(model);
-      if (gltf.animations && gltf.animations.length) {
-        ropeMixer = new THREE.AnimationMixer(model);
-        var action = ropeMixer.clipAction(gltf.animations[0]);
-        action.play();
-        if (reduced.matches) { ropeMixer.setTime(0.4); ropeMixer = null; } // one still pose, no loop
-      }
-      ropeReady = true;
-    }, undefined, function (err) { console.warn('[hero3d] rope skipper failed to load', err); });
-  }
 
   /* --------------------------------------------------------------- LAYOUT */
   function layout() {
@@ -218,13 +176,6 @@ import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
     key.position.x = pivot.position.x - 0.6;
     key.target.position.set(pivot.position.x, 0, 0.4);
     key.target.updateMatrixWorld();
-
-    // Sits to the bag's front-right — clear of the hero copy column (which
-    // occupies roughly the left half) at every tier, never behind the text.
-    var ropeOffset = narrow ? 0.55 : 1.0;
-    ropeGroup.position.x = pivot.position.x + ropeOffset;
-    ropeLight.position.set(ropeGroup.position.x, 2.0, ropeGroup.position.z + 0.6);
-    ropeGroup.visible = W >= 480;
   }
 
   var ro = new ResizeObserver(layout);
@@ -265,7 +216,6 @@ import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
     started = true;
     layout();
     if (reduced.matches) { renderer.render(scene, camera); return; } // one still frame, no loop
-    setTimeout(loadRopeSkipper, 900); // give the bag a beat to paint first
     tick();
   }
 
@@ -301,8 +251,6 @@ import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
       if (dp[i * 3 + 1] > 6) dp[i * 3 + 1] = -1;
     }
     dustGeo.attributes.position.needsUpdate = true;
-
-    if (ropeMixer) ropeMixer.update(dt * 0.01667);
 
     // Scroll: fade + drift, matching the 2D hero's exit behaviour.
     var hr = hero.getBoundingClientRect();

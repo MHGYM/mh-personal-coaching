@@ -637,80 +637,29 @@ a { color: inherit; text-decoration: none; }
 .result-stats .figure { font-size: clamp(1.4rem, 2.8vw, 2rem); color: var(--gold); }
 .results__row { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); margin-top: var(--s-6); }
 
-/* ------------------------------------------------------- 18. PRICING (S9) */
-.plans { display: grid; gap: var(--s-4); align-items: stretch; }
-@media (min-width: 880px) { .plans { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-.plan { position: relative; display: flex; flex-direction: column; }
-.plan__body { padding: clamp(var(--s-5), 3vw, var(--s-7)); display: flex; flex-direction: column; gap: var(--s-5); height: 100%; }
-.plan__freq { font-family: var(--f-display); font-variation-settings: "wdth" 90, "wght" 800; font-size: clamp(1.5rem, 3vw, 2.125rem); text-transform: uppercase; color: var(--warm); line-height: 1; }
-.plan__price { display: flex; align-items: baseline; gap: var(--s-4); flex-wrap: wrap; }
-.plan__amount { font-family: var(--f-edit); font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 500; line-height: 0.9; color: var(--gold-spec); font-variant-numeric: tabular-nums; }
-.plan__per { font-size: var(--fs-label); letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-.plan__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); font-size: var(--fs-small); }
-.plan__list li { display: grid; grid-template-columns: 1rem 1fr; gap: var(--s-3); align-items: start; color: var(--warm-dim); }
-.plan__list svg { width: 1rem; height: 1rem; stroke: var(--gold); fill: none; stroke-width: 1.4; margin-top: 0.3em; }
-.plan__cta { margin-top: auto; }
-.plan--lead { border-color: var(--line-gold); }
-.plan--lead .plan__body { background: radial-gradient(120% 80% at 50% 0%, rgba(201,162,75,0.1), transparent 62%); }
-@media (min-width: 880px) { .plan--lead { transform: translateY(-14px); } .plan--lead:hover { transform: translateY(-18px); } }
-.plan__tag {
-  position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
-  padding: 0.35rem 0.85rem; background: var(--ink); border: 1px solid var(--gold);
-  border-radius: 999px; font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.22em;
-  text-transform: uppercase; color: var(--gold-spec); white-space: nowrap; z-index: 1;
+/* ------------------------------------------------------- 18. CUSTOM PLAN (S9) */
+/* This section used to hold fixed-price tier/package cards. The coaching is
+   sold as bespoke — a traject built in the intake conversation, not picked
+   off a price list — so nothing here ever renders a number. One focal
+   editorial statement instead, styled like the intake panel it points to. */
+.custom-plan {
+  position: relative; isolation: isolate; overflow: hidden;
+  max-width: 46rem; margin-inline: auto; text-align: center;
+  padding: clamp(var(--s-8), 8vw, var(--s-11)) clamp(var(--s-5), 5vw, var(--s-8));
+  border: 1px solid var(--line-gold); border-radius: var(--r-md);
+  background: linear-gradient(165deg, #12121A, #08080C);
+  box-shadow: var(--sh-2);
+  display: grid; justify-items: center; gap: var(--s-6);
 }
-.plans__note { margin-top: var(--s-6); display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-6); justify-content: space-between; align-items: center; padding-top: var(--s-5); border-top: 1px solid var(--line); }
-
-/* Feature comparison list: cumulative inclusion per tier. An excluded row
-   stays in place (dimmed, dash) rather than disappearing, so the three cards
-   stay line-aligned and a visitor can scan "what do I gain by upgrading". */
-.plan__list li.is-excluded { color: var(--muted-deep); opacity: 0.55; }
-.plan__list li.is-excluded svg { stroke: var(--muted-deep); }
-.plan__meta { font-size: var(--fs-small); color: var(--muted); }
-.plan__meta strong { color: var(--warm-dim); font-weight: 500; }
-
-/* Frequency toggle — one control drives all three tier cards below it */
-.freq-toggle { display: flex; flex-direction: column; gap: var(--s-3); margin-bottom: clamp(var(--s-6), 4vw, var(--s-7)); }
-.freq-toggle__group {
-  display: inline-flex; gap: 4px; padding: 4px; width: fit-content; max-width: 100%;
-  border: 1px solid var(--line-strong); border-radius: var(--r-md); background: var(--obsidian);
+.custom-plan__glow {
+  position: absolute; left: 50%; top: -15%; width: 140%; aspect-ratio: 1; z-index: -1;
+  transform: translateX(-50%); pointer-events: none;
+  background: radial-gradient(circle, rgba(201,162,75,0.14), rgba(201,162,75,0.02) 45%, transparent 68%);
 }
-.freq-toggle__btn {
-  padding: 0.75rem 1.25rem; border: 0; border-radius: var(--r-sm); background: transparent;
-  font-family: var(--f-body); font-size: var(--fs-label); font-weight: 600; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--muted); cursor: pointer; white-space: nowrap;
-  transition: background-color var(--t-fast) var(--e-out), color var(--t-fast) var(--e-out);
-}
-.freq-toggle__btn:hover { color: var(--warm); }
-.freq-toggle__btn.is-active {
-  background: linear-gradient(178deg, var(--gold-lift) 0%, var(--gold) 100%);
-  color: #171208; font-weight: 700;
-}
+.custom-plan__title { max-width: 16ch; }
+.custom-plan__lead { max-width: 46ch; }
 
-/* Sub-heading that divides the two product structures inside one section */
-.price-divider { display: flex; align-items: baseline; gap: var(--s-4); flex-wrap: wrap; margin: clamp(var(--s-9), 8vw, var(--s-10)) 0 clamp(var(--s-6), 4vw, var(--s-7)); padding-top: clamp(var(--s-7), 6vw, var(--s-8)); border-top: 1px solid var(--line); }
-.price-divider .d-2 { flex: 1 1 auto; }
-
-/* Lesson-package cards — simpler than tier cards: one price, one total, no list */
-.packages { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--s-4); }
-@media (min-width: 700px)  { .packages { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-@media (min-width: 1080px) { .packages { grid-template-columns: repeat(6, minmax(0,1fr)); } }
-.pkg { position: relative; display: flex; flex-direction: column; }
-.pkg__body { padding: clamp(var(--s-4), 2.4vw, var(--s-5)); display: flex; flex-direction: column; gap: var(--s-3); height: 100%; }
-.pkg__label { font-family: var(--f-display); font-variation-settings: "wdth" 90, "wght" 800; font-size: 1.05rem; text-transform: uppercase; color: var(--warm); }
-.pkg__amount { font-family: var(--f-edit); font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 500; line-height: 1; color: var(--gold-spec); font-variant-numeric: tabular-nums; }
-.pkg__per { font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-.pkg__total { font-size: var(--fs-small); color: var(--muted); }
-.pkg--lead { border-color: var(--line-gold); }
-.pkg--lead .pkg__body { background: radial-gradient(120% 90% at 50% 0%, rgba(201,162,75,0.09), transparent 62%); }
-
-/* Terms — real, sourced conditions, not marketing prose. A quiet reference list. */
-.terms { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
-@media (min-width: 700px) { .terms { grid-template-columns: 1fr 1fr; column-gap: var(--s-6); } }
-.terms li { display: grid; grid-template-columns: 0.6rem 1fr; gap: var(--s-3); align-items: baseline; padding-bottom: var(--s-3); border-bottom: 1px solid var(--line); font-size: var(--fs-small); color: var(--muted); }
-.terms li::before { content: ""; width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
-.terms-block { margin-top: clamp(var(--s-6), 4vw, var(--s-7)); }
-.terms-block__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4); margin-bottom: var(--s-5); flex-wrap: wrap; }
+.btn--lg { padding: 1.3rem 2.75rem; min-height: 3.75rem; font-size: 0.75rem; letter-spacing: 0.2em; }
 
 /* ---------------------------------------------------- 19. COMPARISON (S10) */
 .vs { display: grid; gap: var(--s-4); align-items: stretch; }
