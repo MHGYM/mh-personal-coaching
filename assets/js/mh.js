@@ -921,6 +921,130 @@
     });
   }
 
+  /* ------------------------------------------------------ 8.5 COACH CAROUSEL */
+  var COACHES = [
+    {
+      name: 'Joep Bruinsma',
+      nickname: 'The Technician',
+      quote: 'Joep haalt het beste uit je door goed te kijken en te analyseren.',
+      bio: 'Waar zit de ruimte in jouw techniek, en hoe bouwen we die stap voor ' +
+        'stap op? Met geduld en een scherp oog voor detail werkt hij met je aan ' +
+        'techniek — of je nu net begint of je niveau verder wil aanscherpen. ' +
+        'Naast Personal Training en kickboksen traint hij ook MMA en de kids.',
+      disciplines: ['Personal Training', 'Kickboksen', 'MMA', 'Kids Trainingen'],
+      strengths: ['Technische vaardigheid', 'Analytisch vermogen', 'Geduldig', 'Techniekopbouw', 'Kids & jeugd']
+    },
+    {
+      // Real second coach, not yet confirmed for the live site — no invented
+      // bio or strengths here. Swap this in once name/photo/bio are final.
+      name: 'Binnenkort',
+      nickname: '',
+      quote: '',
+      bio: 'Onze tweede coach wordt binnenkort aan dit team toegevoegd — inclusief foto, disciplines en sterke punten.',
+      disciplines: ['Binnenkort bekend'],
+      strengths: ['Binnenkort bekend']
+    }
+  ];
+
+  function initCoachCarousel() {
+    var frame = $('#coach-frame'), track = $('#coach-track'), dotsWrap = $('#coach-dots');
+    var info = $('#coach-info');
+    var nameEl = $('#coach-name'), nickEl = $('#coach-nickname'), quoteEl = $('#coach-quote'), bioEl = $('#coach-bio');
+    var discEl = $('#coach-disciplines'), strEl = $('#coach-strengths');
+    var prevBtn = $('.coach__arrow[data-dir="-1"]'), nextBtn = $('.coach__arrow[data-dir="1"]');
+    if (!frame || !track || !dotsWrap) return;
+
+    var n = COACHES.length;
+    var index = 0;
+
+    dotsWrap.innerHTML = '';
+    COACHES.forEach(function (c, i) {
+      var dot = doc.createElement('button');
+      dot.type = 'button';
+      dot.className = 'coach__dot';
+      dot.setAttribute('aria-label', c.name || ('Coach ' + (i + 1)));
+      dot.addEventListener('click', function () { goTo(i); });
+      dotsWrap.appendChild(dot);
+    });
+    var dots = $$('.coach__dot', dotsWrap);
+
+    function fillChips(el, items, gold) {
+      el.innerHTML = '';
+      items.forEach(function (t) {
+        var span = doc.createElement('span');
+        span.className = gold ? 'chip chip--gold' : 'chip';
+        span.textContent = t;
+        el.appendChild(span);
+      });
+    }
+
+    function render() {
+      var c = COACHES[index];
+      nameEl.textContent = c.name;
+      // .chip/.coach__quote set their own `display`, which ties the UA
+      // stylesheet's [hidden] rule on specificity and loses to it on source
+      // order — an inline style is the one thing guaranteed to win.
+      nickEl.style.display = c.nickname ? '' : 'none';
+      if (c.nickname) nickEl.textContent = c.nickname;
+      quoteEl.style.display = c.quote ? '' : 'none';
+      if (c.quote) quoteEl.textContent = c.quote;
+      bioEl.textContent = c.bio;
+      fillChips(discEl, c.disciplines, false);
+      fillChips(strEl, c.strengths, true);
+      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === index); });
+      if (prevBtn) prevBtn.setAttribute('aria-disabled', String(index === 0));
+      if (nextBtn) nextBtn.setAttribute('aria-disabled', String(index === n - 1));
+    }
+
+    function moveTrack(offsetPx) {
+      track.style.transform = 'translate3d(calc(' + (-index * 100) + '% + ' + offsetPx + 'px), 0, 0)';
+    }
+
+    function goTo(next) {
+      next = clamp(next, 0, n - 1);
+      if (next === index) { moveTrack(0); return; }
+      index = next;
+      info.classList.add('is-switching');
+      moveTrack(0);
+      setTimeout(function () { render(); info.classList.remove('is-switching'); }, 180);
+    }
+
+    render();
+    moveTrack(0);
+    if (n < 2) return; // nothing to swipe to yet
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); });
+
+    var dragging = false, startX = 0, dx = 0;
+    frame.addEventListener('pointerdown', function (e) {
+      dragging = true; startX = e.clientX; dx = 0;
+      frame.classList.add('is-dragging');
+      frame.setPointerCapture(e.pointerId);
+    });
+    frame.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      dx = e.clientX - startX;
+      // Resist dragging past the first/last slide instead of a hard stop.
+      if ((index === 0 && dx > 0) || (index === n - 1 && dx < 0)) dx *= 0.35;
+      moveTrack(dx);
+    });
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      frame.classList.remove('is-dragging');
+      var w = frame.getBoundingClientRect().width || 1;
+      var threshold = Math.min(80, w * 0.18);
+      if (dx <= -threshold) goTo(index + 1);
+      else if (dx >= threshold) goTo(index - 1);
+      else moveTrack(0);
+      dx = 0;
+    }
+    frame.addEventListener('pointerup', endDrag);
+    frame.addEventListener('pointercancel', endDrag);
+    frame.addEventListener('pointerleave', function () { if (dragging) endDrag(); });
+  }
+
   /* ---------------------------------------------------------- 9. TIMELINE */
   function initTimeline() {
     var tl = $('.tl');
@@ -1098,6 +1222,7 @@
     initNav();
     initHeroParallax();
     initGoals();
+    initCoachCarousel();
     initTimeline();
     initIntake();
     initContact();
