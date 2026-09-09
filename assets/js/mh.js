@@ -935,13 +935,14 @@
       strengths: ['Technische vaardigheid', 'Analytisch vermogen', 'Geduldig', 'Techniekopbouw', 'Kids & jeugd']
     },
     {
-      // Real second coach, not yet confirmed for the live site — no invented
-      // bio or strengths here. Swap this in once name/photo/bio are final.
-      name: 'Binnenkort',
-      nickname: '',
+      // Name, nickname and disciplines are real (sourced from the sibling
+      // mhgym-website project's team data). Bio, strengths and photo are
+      // not — no invented content for those until the real thing lands.
+      name: 'Mohammed',
+      nickname: 'The Boogeyman',
       quote: '',
-      bio: 'Onze tweede coach wordt binnenkort aan dit team toegevoegd — inclusief foto, disciplines en sterke punten.',
-      disciplines: ['Binnenkort bekend'],
+      bio: 'Bio volgt binnenkort.',
+      disciplines: ['Boksen', 'Kickboksen', 'Kracht en Conditie'],
       strengths: ['Binnenkort bekend']
     }
   ];
