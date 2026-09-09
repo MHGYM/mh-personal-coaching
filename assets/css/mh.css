@@ -446,7 +446,18 @@ a { color: inherit; text-decoration: none; }
   padding-top: clamp(7rem, 14vh, 11rem);
   overflow: hidden;
 }
-.hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+.hero__video {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2;
+  object-fit: cover; object-position: 50% 100%;
+  /* Source clip has a burned-in watermark bar filling its top 108 of 850px
+     (12.706%). object-position: bottom anchors the source's bottom edge to
+     the box's bottom edge for whichever axis object-fit crops, so scaling
+     the box up by 1/(1-0.12706) around that same bottom edge pushes exactly
+     the watermark strip above the visible area — on any viewport aspect,
+     not just the one this was tuned against. */
+  transform: scaleY(1.1456);
+  transform-origin: 50% 100%;
+}
 .hero__vignette {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:

@@ -15,7 +15,8 @@ const types = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.woff2': 'font/woff2',
-  '.glb': 'model/gltf-binary'
+  '.glb': 'model/gltf-binary',
+  '.mp4': 'video/mp4'
 };
 
 createServer(async (req, res) => {

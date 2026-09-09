@@ -1121,11 +1121,11 @@
     // Re-resolve the live document: an embedding host may swap it out after
     // this script has already run, leaving our captured reference stale.
     if (doc !== window.document) doc = window.document;
-    // And check for a real canvas, not merely an element in the tree — some
-    // hosts hand out a placeholder node first. Either hero implementation's
-    // canvas counts — whichever one is actually in the markup.
-    var c = $('#hero-canvas-3d') || $('#hero-canvas');
-    return !!c && typeof c.getContext === 'function';
+    // And check for the real hero element, not merely a node in the tree —
+    // some hosts hand out a placeholder first. The hero background has been
+    // a canvas in earlier revisions; accept whichever is actually markup.
+    var c = $('#hero-video') || $('#hero-canvas-3d') || $('#hero-canvas');
+    return !!c;
   }
   function bootOnce() {
     if (booted || !ready()) return;
