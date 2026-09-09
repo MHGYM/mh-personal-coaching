@@ -273,6 +273,10 @@ a { color: inherit; text-decoration: none; }
   display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
   background: linear-gradient(0deg, rgba(7,7,10,0.9), transparent);
 }
+.frame__img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 18%;
+}
 .frame--portrait { aspect-ratio: 4 / 5; }
 .frame--wide { aspect-ratio: 16 / 10; }
 .frame--tall { aspect-ratio: 3 / 4; }
