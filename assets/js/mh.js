@@ -935,15 +935,17 @@
       strengths: ['Technische vaardigheid', 'Analytisch vermogen', 'Geduldig', 'Techniekopbouw', 'Kids & jeugd']
     },
     {
-      // Name, nickname and disciplines are real (sourced from the sibling
-      // mhgym-website project's team data). Bio, strengths and photo are
-      // not — no invented content for those until the real thing lands.
+      // Photo not supplied yet — the portrait slide stays a placeholder.
       name: 'Mohammed',
-      nickname: 'The Boogeyman',
+      nickname: 'The All Rounder',
       quote: '',
-      bio: 'Bio volgt binnenkort.',
-      disciplines: ['Boksen', 'Kickboksen', 'Kracht en Conditie'],
-      strengths: ['Binnenkort bekend']
+      bio: 'Mohammed is oprichter en eigenaar van MH Gym en traint zelf ook ' +
+        'als coach. Met een scherp oog voor detail ziet hij precies waar ' +
+        'verbetering mogelijk is, en is hij sterk in het opbouwen van conditie ' +
+        'en kracht. Daarnaast weet hij mensen goed te motiveren om het beste ' +
+        'uit zichzelf te halen.',
+      disciplines: ['Boksen', 'Kickboksen', 'Kracht', 'Conditie'],
+      strengths: ['Oog voor detail', 'Conditie & kracht', 'Motiveren']
     }
   ];
 
