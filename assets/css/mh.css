@@ -622,7 +622,7 @@ a { color: inherit; text-decoration: none; }
 /* --------------------------------------------------- 15. ENVIRONMENT (S6) */
 .env { position: relative; min-height: clamp(36rem, 92svh, 54rem); overflow: hidden; display: grid; align-items: end; }
 .env__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.env__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+.env__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
 /* The scrim only covers the band the copy occupies — the equipment sits above it */
 .env__veil { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(7,7,10,0.97) 8%, rgba(7,7,10,0.82) 30%, rgba(7,7,10,0.45) 48%, transparent 70%), linear-gradient(90deg, rgba(7,7,10,0.72), transparent 42%); }
 .env__inner { position: relative; padding-block: clamp(var(--s-6), 6vh, var(--s-9)); display: grid; gap: var(--s-5); }
@@ -631,6 +631,17 @@ a { color: inherit; text-decoration: none; }
 .env__inner > * { text-shadow: 0 1px 16px rgba(7, 7, 10, 0.65); }
 .env__inner .chip { text-shadow: none; }
 .env__legend { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+
+/* On phones a wide group photo can't be cropped into a tall hero without
+   either zooming in hard or burying the heading under the bright plant
+   wall. Stack instead: photo strip on top, copy on solid ground below. */
+@media (max-width: 640px) {
+  .env { min-height: 0; display: block; background: var(--ink); overflow: visible; }
+  .env__photo { position: relative; height: auto; aspect-ratio: 16 / 10; object-position: 50% 38%; }
+  .env__veil { display: none; }
+  .env__inner { padding-top: var(--s-6); }
+  .env__inner > * { text-shadow: none; }
+}
 
 /* -------------------------------------------------------- 16. COACH (S7) */
 .coach { display: grid; gap: clamp(var(--s-6), 5vw, var(--s-9)); align-items: start; }
