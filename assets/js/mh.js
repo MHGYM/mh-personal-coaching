@@ -1161,7 +1161,9 @@
     var probe = new Image();
     probe.onload = function () {
       $$('.brand__logo').forEach(function (el) { el.src = LOGO_SRC; el.hidden = false; });
-      $$('.brand__mark').forEach(function (el) { el.style.display = 'none'; });
+      // The supplied logo is the full lockup — it already carries the wordmark,
+      // so the badge and the text beside it both step aside.
+      $$('.brand__mark, .brand__text').forEach(function (el) { el.style.display = 'none'; });
     };
     probe.onerror = function () { /* file not supplied yet — keep the text wordmark */ };
     probe.src = LOGO_SRC;
