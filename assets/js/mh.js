@@ -939,11 +939,11 @@
       name: 'Mohammed',
       nickname: 'The All Rounder',
       quote: '',
-      bio: 'Mohammed is oprichter en eigenaar van MH Gym en traint zelf ook ' +
-        'als coach. Met een scherp oog voor detail ziet hij precies waar ' +
-        'verbetering mogelijk is, en is hij sterk in het opbouwen van conditie ' +
-        'en kracht. Daarnaast weet hij mensen goed te motiveren om het beste ' +
-        'uit zichzelf te halen.',
+      bio: 'Mohammed is oprichter en eigenaar van MH Personal Coaching en ' +
+        'traint zelf ook als coach. Met een scherp oog voor detail ziet hij ' +
+        'precies waar verbetering mogelijk is, en is hij sterk in het opbouwen ' +
+        'van conditie en kracht. Daarnaast weet hij het beste uit zijn cliënten ' +
+        'naar boven te halen en hen te motiveren om hun doel te bereiken.',
       disciplines: ['Boksen', 'Kickboksen', 'Kracht', 'Conditie'],
       strengths: ['Oog voor detail', 'Conditie & kracht', 'Motiveren']
     }
