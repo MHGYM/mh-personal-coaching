@@ -837,7 +837,7 @@
     },
     kracht: {
       claim: 'Sterker worden zonder je adem te verliezen.',
-      body: 'Kracht en conditie hoeven niet met elkaar te concurreren. Je plan combineert zware basisoefeningen met werk dat je hartslag opbouwt, zonder dat het één het ander opeet.',
+      body: 'Persoonlijke krachttraining onder professionele begeleiding, ook op externe fitnesslocaties. We helpen je met de juiste techniek, trainingsopbouw en progressieve opbouw, afgestemd op jouw persoonlijke doel.',
       list: ['Squat, deadlift, press — technisch schoon', 'Kracht-uithoudingsvermogen', 'Explosiviteit en core-stabiliteit', 'Herstel als onderdeel van het plan']
     },
     fitter: {
