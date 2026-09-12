@@ -448,19 +448,16 @@ a { color: inherit; text-decoration: none; }
 }
 .hero__video {
   position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2;
-  object-fit: cover; object-position: 50% 100%;
-  /* Source clip has a burned-in watermark bar filling its top 108 of 850px
-     (12.706%). object-position: bottom anchors the source's bottom edge to
-     the box's bottom edge for whichever axis object-fit crops, so scaling
-     the box up by 1/(1-0.12706) around that same bottom edge pushes exactly
-     the watermark strip above the visible area — on any viewport aspect,
-     not just the one this was tuned against. */
-  transform: scaleY(1.1456);
-  transform-origin: 50% 100%;
+  object-fit: cover; object-position: 50% 20%;
 }
 .hero__vignette {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
+    /* Source clip has a small burned-in watermark in the top-left corner,
+       sitting right where the subjects' heads are — cropping it out isn't
+       an option, so it's smothered here instead, styled as more vignette
+       rather than an obvious patch. */
+    radial-gradient(34% 26% at 9% 7%, rgba(7,7,10,0.96), transparent 72%),
     radial-gradient(120% 78% at 50% 4%, rgba(201,162,75,0.05), transparent 56%),
     radial-gradient(130% 100% at 50% 100%, rgba(7,7,10,0.92), transparent 56%),
     linear-gradient(90deg, rgba(7,7,10,0.9) 0%, rgba(7,7,10,0.25) 34%, transparent 52%, rgba(7,7,10,0.55) 100%);
