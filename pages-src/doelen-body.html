@@ -1,0 +1,70 @@
+<!-- ═══════════════════════════════════════════════ DOELEN ══ -->
+<section class="section page-head">
+  <div class="shell">
+    <div class="section-head">
+      <p class="label label--gold eyebrow" data-reveal>Jouw richting · Soest en omgeving</p>
+      <div class="section-head__row">
+        <h1 class="d-1" data-reveal>Wat wil jij bereiken?</h1>
+        <p class="copy dim" data-reveal data-d="120">
+          Kies je doel. De aanpak eronder verandert mee — want een traject voor
+          vetverlies ziet er niet uit als een traject voor techniek.
+        </p>
+      </div>
+    </div>
+
+    <div class="goals">
+      <button class="card goal" type="button" data-goal="afvallen" aria-expanded="false" aria-controls="goal-panel" data-reveal data-d="0">
+        <span class="goal__kind">Vetverlies</span>
+        <span class="goal__name">Afvallen</span>
+        <span class="goal__hint">Training, voeding en meting in één traject</span>
+      </button>
+      <button class="card goal" type="button" data-goal="kickboksen" aria-expanded="false" aria-controls="goal-panel" data-reveal data-d="70">
+        <span class="goal__kind">Techniek</span>
+        <span class="goal__name">Kickboksen leren</span>
+        <span class="goal__hint">Van eerste stoot tot volledige combinaties</span>
+      </button>
+      <button class="card goal" type="button" data-goal="boksen" aria-expanded="false" aria-controls="goal-panel" data-reveal data-d="140">
+        <span class="goal__kind">Techniek</span>
+        <span class="goal__name">Leren boksen</span>
+        <span class="goal__hint">Voetenwerk, timing en verdediging</span>
+      </button>
+      <button class="card goal" type="button" data-goal="spiergroei" aria-expanded="false" aria-controls="goal-panel" data-reveal data-d="210">
+        <span class="goal__kind">Opbouw</span>
+        <span class="goal__name">Spiergroei</span>
+        <span class="goal__hint">Progressieve belasting met een plan</span>
+      </button>
+      <button class="card goal" type="button" data-goal="kracht" aria-expanded="false" aria-controls="goal-panel" data-reveal data-d="280">
+        <span class="goal__kind">Prestatie</span>
+        <span class="goal__name">Kracht &amp; conditie</span>
+        <span class="goal__hint">Sterker worden én je adem behouden</span>
+      </button>
+      <button class="card goal" type="button" data-goal="fitter" aria-expanded="false" aria-controls="goal-panel" data-reveal data-d="350">
+        <span class="goal__kind">Herstart</span>
+        <span class="goal__name">Fitter &amp; sterker</span>
+        <span class="goal__hint">Rustige, veilige opbouw in jouw tempo</span>
+      </button>
+
+      <!-- Expanding detail row. JS moves this after the clicked card's row. -->
+      <div class="goal-panel" id="goal-panel" aria-hidden="true">
+        <div class="goal-panel__clip">
+          <div class="goal-panel__inner">
+            <div class="stack stack-5">
+              <!-- One flex child, or the hairline and the name wrap apart -->
+              <p class="label label--gold eyebrow"><span>Onze aanpak · <span class="goal-panel__name"></span></span></p>
+              <p class="goal-panel__claim"></p>
+              <p class="copy goal-panel__body"></p>
+              <div class="row">
+                <button class="btn btn--gold goal-panel__cta" type="button">Dit is mijn doel</button>
+                <button class="btn btn--quiet goal-panel__close" type="button">Sluiten</button>
+              </div>
+            </div>
+            <div class="stack stack-4">
+              <p class="label">Wat daar concreet in zit</p>
+              <ul class="goal-panel__list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

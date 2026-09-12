@@ -17,6 +17,7 @@
     email:        'mhmultidiensten@hotmail.com',
     phone:        '+31640893537',       // used for the tel: link
     phoneDisplay: '06 40893537',        // used for the visible text
+    address:      'Belvedereweg 3B, 3762 EE Soest',
     mhGymUrl: ''                        // e.g. 'https://www.mhgym.nl'
   };
 
@@ -911,13 +912,11 @@
     // Reflow the panel to the right row when the column count changes.
     window.addEventListener('resize', function () { if (current) open(current); });
 
-    // "Dit is mijn doel" carries the choice into the intake.
+    // "Dit is mijn doel" carries the choice into the intake — the intake
+    // lives on its own page now, so the goal travels as a query param and
+    // initIntake() picks it up there (see ?doel= handling below).
     $('.goal-panel__cta', panel).addEventListener('click', function () {
-      var key = this.dataset.goal;
-      var opt = $('.opt[data-goal="' + key + '"]');
-      if (opt) opt.click();
-      var target = doc.getElementById('intake');
-      if (target) target.scrollIntoView({ behavior: reduced.matches ? 'auto' : 'smooth', block: 'start' });
+      window.location.href = 'intake.html?doel=' + encodeURIComponent(this.dataset.goal || '');
     });
   }
 
@@ -1147,6 +1146,16 @@
     });
 
     render();
+
+    // A goal chosen on the Doelen page arrives here as ?doel=<key> — pick
+    // the matching option so the intake opens one step ahead instead of
+    // making people answer the same question twice.
+    var preGoal = new URLSearchParams(window.location.search).get('doel');
+    if (preGoal) {
+      var preOpt = $('.opt[data-goal="' + preGoal + '"]', form);
+      if (preOpt) preOpt.click();
+    }
+
     return { set: function (q, v) { answers[q] = v; } };
   }
 
@@ -1195,6 +1204,13 @@
     if (CONFIG.phone) $$('[data-phone]').forEach(function (el) {
       if (/in te vullen/.test(el.textContent)) el.textContent = CONFIG.phoneDisplay || CONFIG.phone;
       el.setAttribute('href', 'tel:' + CONFIG.phone.replace(/\s/g, ''));
+    });
+    if (CONFIG.address) $$('[data-address]').forEach(function (el) {
+      if (/in te vullen/.test(el.textContent)) el.textContent = CONFIG.address;
+      if (el.tagName === 'A') {
+        el.setAttribute('href', 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(CONFIG.address));
+        el.setAttribute('target', '_blank'); el.setAttribute('rel', 'noopener');
+      }
     });
 
     // Intake outcome: hand the answers to WhatsApp if it is configured.
@@ -1251,10 +1267,12 @@
     // Re-resolve the live document: an embedding host may swap it out after
     // this script has already run, leaving our captured reference stale.
     if (doc !== window.document) doc = window.document;
-    // And check for the real hero element, not merely a node in the tree —
-    // some hosts hand out a placeholder first. The hero background has been
-    // a canvas in earlier revisions; accept whichever is actually markup.
-    var c = $('#hero-video') || $('#hero-canvas-3d') || $('#hero-canvas');
+    // And check for a real, always-present piece of markup, not merely a
+    // node in the tree — some hosts hand out a placeholder first. Used to
+    // gate on the hero canvas/video specifically, but the site is now
+    // multi-page and most pages have no hero at all — the nav is the one
+    // thing every page shares.
+    var c = $('.nav__links') || $('#hero-video') || $('#hero-canvas-3d') || $('#hero-canvas');
     return !!c;
   }
   function bootOnce() {

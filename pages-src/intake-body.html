@@ -1,0 +1,111 @@
+<!-- ═════════════════════════════════════ INTERACTIEVE INTAKE ══ -->
+<section class="section page-head">
+  <div class="shell">
+    <div class="section-head">
+      <p class="label label--gold eyebrow" data-reveal>Kennismaking</p>
+      <div class="section-head__row">
+        <h1 class="d-1" data-reveal>Is MH Personal Coaching iets voor jou?</h1>
+        <p class="copy dim" data-reveal data-d="120">
+          Vijf vragen. Je antwoorden gaan mee naar de kennismaking, zodat het
+          eerste gesprek niet begint bij nul.
+        </p>
+      </div>
+    </div>
+
+    <div class="intake" id="intake-flow" data-reveal>
+      <div class="intake__progress" aria-hidden="true"><span></span></div>
+
+      <div class="intake__body">
+        <div class="intake__meta">
+          <p class="label">Persoonlijke intake</p>
+          <p class="intake__count" aria-live="polite">01 / 05</p>
+        </div>
+
+        <!-- 1 -->
+        <div class="intake__step is-current" data-q="Wat is jouw doel?" data-required="true" data-auto-next="true">
+          <h3 class="intake__q display">Wat is jouw doel?</h3>
+          <div class="opts" role="radiogroup" aria-label="Wat is jouw doel?">
+            <button class="opt" type="button" role="radio" aria-checked="false" data-goal="afvallen" data-value="Afvallen"><span class="opt__mark"></span>Afvallen</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-goal="kickboksen" data-value="Kickboksen leren"><span class="opt__mark"></span>Kickboksen leren</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-goal="boksen" data-value="Leren boksen"><span class="opt__mark"></span>Leren boksen</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-goal="spiergroei" data-value="Spiergroei"><span class="opt__mark"></span>Spiergroei</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-goal="kracht" data-value="Kracht &amp; conditie"><span class="opt__mark"></span>Kracht &amp; conditie</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-goal="fitter" data-value="Fitter &amp; sterker"><span class="opt__mark"></span>Fitter &amp; sterker</button>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="intake__step" data-q="Hoe vaak wil je trainen?" data-required="true" data-auto-next="true">
+          <h3 class="intake__q display">Hoe vaak wil je trainen?</h3>
+          <div class="opts" role="radiogroup" aria-label="Hoe vaak wil je trainen?">
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="1× per week"><span class="opt__mark"></span>1× per week</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="2× per week"><span class="opt__mark"></span>2× per week</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="3× per week"><span class="opt__mark"></span>3× per week</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="Dat wil ik overleggen"><span class="opt__mark"></span>Dat wil ik overleggen</button>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="intake__step" data-q="Heb je al ervaring?" data-required="true" data-auto-next="true">
+          <h3 class="intake__q display">Heb je al ervaring?</h3>
+          <div class="opts" role="radiogroup" aria-label="Heb je al ervaring?">
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="Nee, ik begin net"><span class="opt__mark"></span>Nee, ik begin net</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="Een beetje"><span class="opt__mark"></span>Een beetje</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="Ja, ruime ervaring"><span class="opt__mark"></span>Ja, ruime ervaring</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="Ik kom terug na een pauze"><span class="opt__mark"></span>Ik kom terug na een pauze</button>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="intake__step" data-q="Wat houdt je momenteel tegen?" data-required="true" data-auto-next="true">
+          <h3 class="intake__q display">Wat houdt je momenteel tegen?</h3>
+          <div class="opts" role="radiogroup" aria-label="Wat houdt je momenteel tegen?">
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="Tijd"><span class="opt__mark"></span>Tijd</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="Motivatie en consistentie"><span class="opt__mark"></span>Motivatie en consistentie</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="Ik weet niet wat werkt"><span class="opt__mark"></span>Ik weet niet wat werkt</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="Blessure of beperking"><span class="opt__mark"></span>Blessure of beperking</button>
+            <button class="opt" type="button" role="radio" aria-checked="false" data-value="Resultaat blijft uit"><span class="opt__mark"></span>Resultaat blijft uit</button>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="intake__step" data-q="Wat wil je bereiken?">
+          <h3 class="intake__q display">Wat wil je bereiken?</h3>
+          <p class="dim" style="max-width:52ch;margin:0">
+            In je eigen woorden. Dit is het stuk waar je coach het gesprek mee
+            begint.
+          </p>
+          <textarea class="field" placeholder="Bijvoorbeeld: over zes maanden wil ik tien kilo lichter zijn en drie keer per week kunnen trainen zonder blessures."></textarea>
+        </div>
+
+        <!-- Result -->
+        <div class="intake__step" data-q="result">
+          <div class="intake__result">
+            <div class="stack stack-6">
+              <p class="label label--gold eyebrow">Uitkomst</p>
+              <h3 class="d-2">Op basis van jouw antwoorden lijkt persoonlijke coaching goed bij jou te passen.</h3>
+              <p class="copy dim">
+                De volgende stap is een kennismaking. Daarin bespreken we je
+                antwoorden, je doel en of wij de juiste coaching voor je zijn —
+                zonder verplichting.
+              </p>
+              <div class="row">
+                <a class="btn btn--gold intake__send" href="#contact" data-wa>Plan een kennismaking</a>
+                <button class="btn btn--quiet" type="button" data-intake="restart">Opnieuw invullen</button>
+              </div>
+            </div>
+            <div class="stack stack-4">
+              <p class="label">Jouw antwoorden</p>
+              <ul class="intake__summary"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="intake__nav">
+          <button class="btn btn--quiet" type="button" data-intake="prev">Vorige</button>
+          <button class="btn btn--gold" type="button" data-intake="next"><span>Volgende</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
