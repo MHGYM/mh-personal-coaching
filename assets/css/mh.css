@@ -346,7 +346,23 @@ a { color: inherit; text-decoration: none; }
 }
 .nav.is-hidden { transform: translateY(-100%); }
 
-.brand { display: flex; align-items: center; gap: var(--s-4); margin-right: auto; }
+.brand { display: flex; align-items: center; gap: var(--s-4); margin-right: auto; position: relative; z-index: 1; }
+/* The nav is transparent until scrolled, and the hero clip's watermark sits
+   exactly behind where the logo goes — cropping the video never fully
+   cleared it on every phone, so this pins an opaque backdrop to the nav's
+   actual top-left corner instead (not just behind the logo's own box,
+   which still left a sliver of the corner exposed). It hides whatever's
+   behind it regardless of the video, on any viewport. .nav is already
+   position:fixed, so it's the containing block for this without any
+   extra positioning rule. */
+.nav::before {
+  content: ""; position: absolute; top: 0; left: 0;
+  width: 13rem; height: 5.5rem;
+  background: rgba(7,7,10,0.65);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border-bottom-right-radius: var(--r-lg);
+  pointer-events: none;
+}
 .brand__mark {
   display: grid; place-items: center; width: 2.5rem; height: 2.5rem; flex: none;
   border: 1px solid var(--line-gold); border-radius: var(--r-sm);
