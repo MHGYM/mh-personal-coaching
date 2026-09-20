@@ -54,6 +54,7 @@ function renderHead(page) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${page.title}</title>
 <meta name="description" content="${page.description}">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#07070A">
 <meta property="og:title" content="${page.ogTitle || page.title}">
 <meta property="og:description" content="${page.description}">
@@ -62,6 +63,10 @@ function renderHead(page) {
 <meta property="og:image" content="${SITE}/assets/img/logo/mh-personal-coaching-logo-transparent.png">
 <meta property="og:locale" content="nl_NL">
 <link rel="canonical" href="${canonical}">
+<link rel="icon" type="image/png" href="assets/img/logo/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/logo/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/logo/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/img/logo/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..500&family=Instrument+Sans:wght@400;500;600&display=swap">

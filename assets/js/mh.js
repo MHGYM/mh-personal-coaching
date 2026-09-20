@@ -934,7 +934,6 @@
       strengths: ['Technische vaardigheid', 'Analytisch vermogen', 'Geduldig', 'Techniekopbouw', 'Kids & jeugd']
     },
     {
-      // Photo not supplied yet — the portrait slide stays a placeholder.
       name: 'Mohammed',
       nickname: 'The All Rounder',
       quote: '',
