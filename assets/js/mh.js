@@ -18,7 +18,7 @@
     phone:        '+31640893537',       // used for the tel: link
     phoneDisplay: '06 40893537',        // used for the visible text
     address:      'Belvedereweg 3B, 3762 EE Soest',
-    mhGymUrl: ''                        // e.g. 'https://www.mhgym.nl'
+    mhGymUrl: 'https://www.mhgym.nl'
   };
 
   /* --------------------------------------------------------------- 1. UTILS */
